@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
     ];
@@ -42,15 +42,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function komentar(){
+    public function komentar()
+    {
         return $this->hasMany(Komentar::class);
     }
 
-    public function favorit(){
+    public function favorit()
+    {
         return $this->hasMany(Favorit::class);
     }
 
-    public function resep(){
+    public function resep()
+    {
         return $this->hasMany(Resep::class);
     }
 }
