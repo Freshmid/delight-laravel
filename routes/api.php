@@ -26,4 +26,14 @@ Route::get("/tes", function () {
 Route::post("/login", [AuthController::class, "login"]);
 Route::post("/register", [AuthController::class, "register"]);
 
+// ?id=id_user
+Route::get("/user", [AuthController::class, "user"]);
+
 Route::get("/rekomendasi", [ApiController::class, "rekomendasi"]);
+Route::get("/inspirasi", [ApiController::class, "inspirasi"]);
+Route::get("/home-api", [ApiController::class, "homeApi"]);
+
+// ?cari=nama|deskripsi&kategori=kategori&order=asc|desc
+Route::get("/resep", [ApiController::class, "resep"]);
+
+Route::get("/detail-resep", [ApiController::class, "detailResep"]);

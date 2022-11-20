@@ -12,9 +12,17 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
-            return response()->json(true);
+            $response = [
+                "data" => Auth::user(),
+                "status" => true
+            ];
+            return response()->json($response);
         } else {
-            return response()->json(false);
+            $response = [
+                "data" => null,
+                "status" => false
+            ];
+            return response()->json($response);
         }
     }
 
@@ -53,6 +61,16 @@ class AuthController extends Controller
 
         $response = [
             "data" => $user,
+            "status" => true
+        ];
+        return response()->json($response);
+    }
+
+    public function user(Request $request)
+    {
+        $data = User::find($request->id);
+        $response = [
+            "data" => $data,
             "status" => true
         ];
         return response()->json($response);

@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('reseps', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger("user_id");
+            $table->bigInteger("kategori_id");
             $table->string("nama");
             $table->text("deskripsi");
             $table->integer("rating")->nullable();
             $table->integer("penilai")->nullable();
             $table->text("gambar")->nullable();
-            $table->bigInteger("user_id");
             $table->timestamps();
         });
     }
