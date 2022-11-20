@@ -75,4 +75,35 @@ class AuthController extends Controller
         ];
         return response()->json($response);
     }
+
+    public function updateUser(User $user, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'email' => 'required|email',
+            'tanggal_lahir' => 'required'
+        ], [
+            "nama.required" => "Tidak boleh kosong",
+            "email.required" => "Tidak boleh kosong",
+            "email.unique" => "Email telah digunakan",
+            "email.email" => "Masukkan format email dengan benar",
+            "tanggal_lahir.required" => "Tidak boleh kosong",
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                "data" => $validator->messages(),
+                "status" => false
+            ];
+            return response()->json($response);
+        }
+
+        $data = $user->update($request->all());
+
+        $response = [
+            "data" => $data,
+            "status" => false
+        ];
+        return response()->json($response);
+    }
 }

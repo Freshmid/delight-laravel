@@ -28,6 +28,7 @@ Route::post("/register", [AuthController::class, "register"]);
 
 // ?id=id_user
 Route::get("/user", [AuthController::class, "user"]);
+Route::post("/update-user/{user}", [AuthController::class, "updateUser"]);
 
 Route::get("/rekomendasi", [ApiController::class, "rekomendasi"]);
 Route::get("/inspirasi", [ApiController::class, "inspirasi"]);
