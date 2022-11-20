@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resep;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -10,44 +11,28 @@ class ApiController extends Controller
     public function rekomendasi(Request $request)
     {
         $data = Resep::with("user", "kategori")->orderBy("rating", "DESC")->get()->take(6);
-        $response = [
-            "data" => $data,
-            "status" => true
-        ];
-        return response()->json($response);
+        return ApiFormat::json($data, true);
     }
 
     public function inspirasi(Request $request)
     {
         $data = Resep::orderBy("id", "DESC")->get(["id", "gambar"])->take(5);
-        $response = [
-            "data" => $data,
-            "status" => true
-        ];
-        return response()->json($response);
+        return ApiFormat::json($data, true);
     }
 
     public function homeApi(Request $request)
     {
-        $response = [
-            "data" => [
-                "rekomendasi" => $this->rekomendasi($request)->original["data"],
-                "inspirasi" => $this->inspirasi($request)->original["data"]
-            ],
-            "status" => true
+        $data = [
+            "rekomendasi" => $this->rekomendasi($request)->original,
+            "inspirasi" => $this->inspirasi($request)->original
         ];
-        return response()->json($response);
+        return ApiFormat::json($data, true);
     }
 
     public function detailResep(Request $request)
     {
         $data = Resep::with("user", "kategori")->find($request->id);
-        $response = [
-            "data" => $data,
-            "jumlah" => count($data),
-            "status" => true
-        ];
-        return response()->json($response);
+        return ApiFormat::json($data);
     }
 
     public function resep(Request $request)
