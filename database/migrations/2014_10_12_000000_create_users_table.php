@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->text("gambar")->nullable();
-            $table->date('tanggal_lahir');
+            // $table->date('tanggal_lahir');
             $table->rememberToken();
             $table->timestamps();
         });
