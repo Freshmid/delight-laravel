@@ -81,13 +81,13 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'email' => 'required|email',
-            'tanggal_lahir' => 'required'
+            // 'tanggal_lahir' => 'required'
         ], [
             "nama.required" => "Tidak boleh kosong",
             "email.required" => "Tidak boleh kosong",
             "email.unique" => "Email telah digunakan",
             "email.email" => "Masukkan format email dengan benar",
-            "tanggal_lahir.required" => "Tidak boleh kosong",
+            // "tanggal_lahir.required" => "Tidak boleh kosong",
         ]);
 
         if ($validator->fails()) {

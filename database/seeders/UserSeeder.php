@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             "gambar" => "user1.jpg",
             "password" => bcrypt("admin"),
             "nama" => "delighter",
-            "tanggal_lahir" => "2001-07-01",
+            // "tanggal_lahir" => "2001-07-01",
         ]);
 
         User::create([
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             "gambar" => "user1.jpg",
             "password" => bcrypt("coba"),
             "nama" => "delighter",
-            "tanggal_lahir" => "2001-07-01",
+            // "tanggal_lahir" => "2001-07-01",
         ]);
     }
 }
