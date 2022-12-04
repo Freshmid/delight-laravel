@@ -86,7 +86,7 @@ class ApiController extends Controller
             "user_id" => $request->user_id,
             "nama" => $request->nama,
             "deskripsi" => $request->deskripsi,
-            "gambar" => $request->format,
+            "gambar" => Str::random(24) . $request->format,
         ]);
 
         $response = [
