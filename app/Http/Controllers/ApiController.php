@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Resep;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Contracts\Service\Attribute\Required;
+use Illuminate\Support\Str;
 
 class ApiController extends Controller
 {
@@ -58,16 +60,19 @@ class ApiController extends Controller
     public function upresep(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'Required',
+            'user_id' => 'required',
             'nama' => 'required',
             'deskripsi' => 'required',
-            // 'gambar' => 'required',
+            'gambar' => 'required',
         ], [
-            "user_id" => "Belum Login",
+            "user_id.required" => "Belum Login",
             "nama.required" => "Tidak boleh kosong",
             "deskripsi.required" => "Tidak boleh kosong",
-            // "gambar.required" => "Tidak boleh kosong",
+            "gambar.required" => "Tidak boleh kosong",
         ]);
+
+        $gambarBase64 = base64_decode($request->gambar);
+        File::put(storage_path() . '/app/public/recipes/' . Str::random(24) . $request->format, $gambarBase64);
 
         if ($validator->fails()) {
             $response = [
@@ -81,6 +86,7 @@ class ApiController extends Controller
             "user_id" => $request->user_id,
             "nama" => $request->nama,
             "deskripsi" => $request->deskripsi,
+            "gambar" => $request->format,
         ]);
 
         $response = [
