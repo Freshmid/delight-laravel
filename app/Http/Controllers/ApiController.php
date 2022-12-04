@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Resep;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class ApiController extends Controller
 {
@@ -48,6 +50,40 @@ class ApiController extends Controller
         $response = [
             "data" => $data,
             "jumlah" => count($data),
+            "status" => true
+        ];
+        return response()->json($response);
+    }
+
+    public function upresep(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'Required',
+            'nama' => 'required',
+            'deskripsi' => 'required',
+            // 'gambar' => 'required',
+        ], [
+            "user_id" => "Belum Login",
+            "nama.required" => "Tidak boleh kosong",
+            "deskripsi.required" => "Tidak boleh kosong",
+            // "gambar.required" => "Tidak boleh kosong",
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                "data" => $validator->messages(),
+                "status" => false
+            ];
+            return response()->json($response);
+        }
+
+        $user = Resep::create([
+            "nama" => $request->nama,
+            "deskripsi" => $request->deskripsi,
+        ]);
+
+        $response = [
+            "data" => $user,
             "status" => true
         ];
         return response()->json($response);

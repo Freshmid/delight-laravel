@@ -36,5 +36,6 @@ Route::get("/home-api", [ApiController::class, "homeApi"]);
 
 // ?cari=nama|deskripsi&kategori=kategori&order=asc|desc
 Route::get("/resep", [ApiController::class, "resep"]);
+Route::post("/up-resep", [ApiController::class, "upresep"]);
 
 Route::get("/detail-resep", [ApiController::class, "detailResep"]);
