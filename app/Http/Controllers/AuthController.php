@@ -68,8 +68,7 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        $data = User::find($request->email);
-        // $data = User::with('email', 'password');
+        $data = User::find($request->id);
         $response = [
             "data" => $data,
             "status" => true
