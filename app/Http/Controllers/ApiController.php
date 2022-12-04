@@ -78,6 +78,7 @@ class ApiController extends Controller
         }
 
         $user = Resep::create([
+            "user_id" => $request->user_id,
             "nama" => $request->nama,
             "deskripsi" => $request->deskripsi,
         ]);
