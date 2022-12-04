@@ -35,7 +35,7 @@ class ApiController extends Controller
 
     public function detailResep(Request $request)
     {
-        $data = Resep::with("user", "kategori", "nama", "deskripsi")->find($request->id);
+        $data = Resep::with("user", "kategori")->find($request->id);
         return ApiFormat::json($data);
     }
 
