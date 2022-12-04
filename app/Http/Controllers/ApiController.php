@@ -72,7 +72,8 @@ class ApiController extends Controller
         ]);
 
         $gambarBase64 = base64_decode($request->gambar);
-        File::put(storage_path() . '/app/public/recipes/' . Str::random(24) . $request->format, $gambarBase64);
+        $gambarName = Str::random(24) . $request->format;
+        File::put(storage_path() . '/app/public/recipes/' . $gambarName,$gambarBase64);
 
         if ($validator->fails()) {
             $response = [
@@ -86,7 +87,7 @@ class ApiController extends Controller
             "user_id" => $request->user_id,
             "nama" => $request->nama,
             "deskripsi" => $request->deskripsi,
-            "gambar" => Str::random(24) . $request->format,
+            "gambar" => $gambarName,
         ]);
 
         $response = [
